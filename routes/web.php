@@ -6,7 +6,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BookingController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 // -----------------------------
@@ -15,14 +15,14 @@ Route::get('/', function () {
 Route::prefix('api')->middleware('api')->group(function () {
 
     // 🔓 Public APIs
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register'])->name('register');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
 
     // 🔐 Authenticated (Customer) APIs
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/services', [ServiceController::class, 'index']);
         Route::post('/bookings', [BookingController::class, 'store']);
-        Route::get('/bookings', [BookingController::class, 'userBookings']);
+        Route::get('/bookings', [BookingController::class, 'myBookings']);
 
         // 👮‍♂️ Admin-only APIs (assuming you have 'is_admin' middleware)
         Route::middleware('is_admin')->group(function () {

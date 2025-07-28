@@ -19,7 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         // Register named middleware
         $middleware->alias([
-            'admin' => AdminMiddleware::class,
+            'is_admin' => AdminMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
