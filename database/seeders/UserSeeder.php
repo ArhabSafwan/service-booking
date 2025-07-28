@@ -18,7 +18,6 @@ class UserSeeder extends Seeder
         // Admin User
         User::create([
             'name' => 'Arhab Safwan',
-            'user_name' => 'arhab',
             'email' => 'asafwan72@gmail.com',
             'password' => Hash::make('123456'),
             'is_admin' => 1,
@@ -27,7 +26,6 @@ class UserSeeder extends Seeder
         // Customer User
         User::create([
             'name' => 'Qtech',
-            'user_name' => 'qtech',
             'email' => 'qtecdev.careers@gmail.com',
             'password' => Hash::make('123456'),
             'is_admin' => 0,
