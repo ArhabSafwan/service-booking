@@ -13,6 +13,9 @@ Route::get('/', function () {
 // ✅ API Routes Start Here
 // -----------------------------
 Route::prefix('api')->middleware('api')->group(function () {
+    Route::get('/test', function () {
+        return response()->json(['message' => 'API is working']);
+    });
 
     // 🔓 Public APIs
     Route::post('/register', [AuthController::class, 'register'])->name('register');
