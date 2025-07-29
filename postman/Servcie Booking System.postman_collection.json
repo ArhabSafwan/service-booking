@@ -1,0 +1,418 @@
+{
+	"info": {
+		"_postman_id": "49e63db3-09a0-4ced-903b-529e0e01121d",
+		"name": "Servcie Booking System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47135770",
+		"_collection_link": "https://research-astronomer-42074418-4382782.postman.co/workspace/Arhab-Safwan's-Workspace~a986f496-b984-42e4-85be-17240754cf76/collection/47135770-49e63db3-09a0-4ced-903b-529e0e01121d?action=share&source=collection_link&creator=47135770"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"johndoe@example.com\",\r\n  \"password\": \"secret123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				},
+				"description": "## Login API Endpoint\n\nThis endpoint is used to authenticate users by logging them into the system. Upon successful authentication, it returns a token that can be used for subsequent requests requiring authentication.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `{{baseURL}}/api/login`\n    \n- **Content-Type**: application/json\n    \n\n#### Request Body\n\nThe request body must be a JSON object containing the following parameters:\n\n- **email** (string): The email address of the user attempting to log in.\n    \n- **password** (string): The password associated with the user's account.\n    \n\n**Example Request Body**:\n\n``` json\n{\n  \"email\": \"user@example.com\",\n  \"password\": \"yourpassword\"\n}\n\n ```\n\n### Response\n\nOn successful authentication, the server responds with a JSON object containing the following:\n\n- **token** (string): A token that is issued to the user upon successful login. This token should be included in the headers of subsequent requests to access protected resources.\n    \n\n**Example Response**:\n\n``` json\n{\n  \"token\": \"your_generated_token\"\n}\n\n ```\n\n### Status Codes\n\n- **200 OK**: Indicates that the login was successful, and the token is returned.\n    \n- **4xx/5xx**: Various error codes may be returned for invalid credentials or other issues.\n    \n\nEnsure to handle the token securely and include it in the Authorization header for any subsequent requests that require authentication."
+			},
+			"response": []
+		},
+		{
+			"name": "Customer registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"johndoe@example.com\",\r\n    \"password\": \"secret123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/register",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List available services",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "6|zRJkVPht9xptWJkps0QIcN1hzlwHORRwnZN5fr5537d6d806",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"johndoe@example.com\",\r\n  \"password\": \"secret123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/services",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"services"
+					]
+				},
+				"description": "### API Endpoint: Retrieve Services\n\nThis endpoint retrieves a list of services available in the system.\n\n#### Request\n\n- **Method**: GET\n    \n- **URL**: `{{baseURL}}/api/services`\n    \n\n##### Request Body\n\nThe request requires a JSON body with the following parameters:\n\n- `email` (string): The email address of the user making the request.\n    \n- `password` (string): The password associated with the user's account.\n    \n\n**Example Request Body**:\n\n``` json\n{\n  \"email\": \"johndoe@example.com\",\n  \"password\": \"secret123\"\n}\n\n ```\n\n#### Response\n\nUpon a successful request, the server responds with a status code of `200` and a JSON array containing the services. Each service object in the array includes the following fields:\n\n- `id` (integer): The unique identifier for the service.\n    \n- `name` (string): The name of the service.\n    \n- `description` (string): A brief description of the service.\n    \n- `price` (string): The price of the service.\n    \n- `status` (integer): The current status of the service (e.g., active, inactive).\n    \n- `created_at` (string): The timestamp when the service was created.\n    \n- `updated_at` (string): The timestamp when the service was last updated.\n    \n\n**Example Response**:\n\n``` json\n[\n  {\n    \"id\": 0,\n    \"name\": \"\",\n    \"description\": \"\",\n    \"price\": \"\",\n    \"status\": 0,\n    \"created_at\": \"\",\n    \"updated_at\": \"\"\n  }\n]\n\n ```\n\nThis endpoint is essential for users to view the services they can interact with in the application."
+			},
+			"response": []
+		},
+		{
+			"name": "Book a service",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "6|zRJkVPht9xptWJkps0QIcN1hzlwHORRwnZN5fr5537d6d806",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"service_id\": 1,\r\n  \"booking_date\": \"2025-08-05\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/bookings",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"bookings"
+					]
+				},
+				"description": "### Create Booking\n\nThis endpoint allows users to create a new booking for a specific service on a given date.\n\n#### Request Format\n\n- **Method**: POST\n    \n- **URL**: `{{baseURL}}/api/bookings`\n    \n- **Content-Type**: application/json\n    \n\n#### Request Body\n\nThe request body must be in JSON format and should contain the following parameters:\n\n- `service_id` (integer): The ID of the service being booked.\n    \n- `booking_date` (string): The date for the booking in the format `YYYY-MM-DD`.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"service_id\": 1,\n  \"booking_date\": \"2025-08-05\"\n}\n\n ```\n\n#### Response Format\n\nOn a successful booking creation, the API will return a response with the following attributes:\n\n- `user_id` (integer): The ID of the user making the booking.\n    \n- `service_id` (integer): The ID of the service booked.\n    \n- `booking_date` (string): The date of the booking.\n    \n- `status` (string): The current status of the booking.\n    \n- `updated_at` (string): Timestamp of when the booking was last updated.\n    \n- `created_at` (string): Timestamp of when the booking was created.\n    \n- `id` (integer): The unique identifier for the booking.\n    \n\n**Response Example:**\n\n``` json\n{\n  \"user_id\": 0,\n  \"service_id\": 0,\n  \"booking_date\": \"\",\n  \"status\": \"\",\n  \"updated_at\": \"\",\n  \"created_at\": \"\",\n  \"id\": 0\n}\n\n ```\n\n#### Status Codes\n\n- **201 Created**: Indicates that the booking has been successfully created."
+			},
+			"response": []
+		},
+		{
+			"name": "List logged-in user's bookings",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "6|zRJkVPht9xptWJkps0QIcN1hzlwHORRwnZN5fr5537d6d806",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/bookings",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"bookings"
+					]
+				},
+				"description": "### API Endpoint: Get Bookings\n\nThis endpoint retrieves a list of bookings associated with the user. It is designed to provide information about each booking, including details about the services associated with those bookings.\n\n#### Request\n\n- **Method**: GET\n    \n- **URL**: `{{baseURL}}/api/bookings`\n    \n\nNo request body is required for this GET request.\n\n#### Response\n\nOn a successful request, the server responds with a JSON array containing booking objects. Each booking object includes the following fields:\n\n- **id** (integer): The unique identifier for the booking.\n    \n- **user_id** (integer): The identifier for the user associated with the booking.\n    \n- **service_id** (integer): The identifier for the service related to the booking.\n    \n- **booking_date** (string): The date when the booking was made.\n    \n- **status** (string): The current status of the booking.\n    \n- **created_at** (string): The timestamp when the booking was created.\n    \n- **updated_at** (string): The timestamp when the booking was last updated.\n    \n- **service** (object): An object containing details about the service associated with the booking:\n    \n    - **id** (integer): The unique identifier for the service.\n        \n    - **name** (string): The name of the service.\n        \n    - **description** (string): A brief description of the service.\n        \n    - **price** (string): The price of the service.\n        \n    - **status** (integer): The current status of the service.\n        \n    - **created_at** (string): The timestamp when the service was created.\n        \n    - **updated_at** (string): The timestamp when the service was last updated.\n        \n\n#### Example Response\n\n``` json\n[\n  {\n    \"id\": 0,\n    \"user_id\": 0,\n    \"service_id\": 0,\n    \"booking_date\": \"\",\n    \"status\": \"\",\n    \"created_at\": \"\",\n    \"updated_at\": \"\",\n    \"service\": {\n      \"id\": 0,\n      \"name\": \"\",\n      \"description\": \"\",\n      \"price\": \"\",\n      \"status\": 0,\n      \"created_at\": \"\",\n      \"updated_at\": \"\"\n    }\n  }\n]\n\n ```\n\nThis structure allows clients to easily access and display booking information along with the relevant service details."
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Login",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"asafwan72@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"is_admin\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				},
+				"description": "\n## Login API\n\nThis endpoint allows users to authenticate and obtain a token for accessing protected resources.\n\n### Request\n\n- **Method:** POST\n- **URL:** `{{baseURL}}/api/login`\n- **Content-Type:** application/json\n\n#### Request Body Parameters\n\n- **email** (string): The email address of the user attempting to log in.\n- **password** (string): The password associated with the user's account.\n- **is_admin** (boolean): A flag indicating whether the user is an administrator.\n\n### Response\n\n- **Status Code:** 200\n- **Content-Type:** application/json\n\n#### Response Body\n\n- **token** (string): A token that is returned upon successful authentication. This token should be used for subsequent requests to access protected resources.\n\n### Notes\n\n- Ensure that the email and password provided are correct to receive a valid token.\n- The `is_admin` parameter is optional and is used to signify administrative access; it may affect the permissions granted by the token.\n- Keep the token secure and do not expose it in public repositories or logs.\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new service",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "9|5zeVMNLnTuDNliKrxHXIeLTMlEBDmdKmWkLSUuYWf14cb380",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Car Servicing\",\r\n  \"description\": \"Full car cleaning service\",\r\n  \"price\": 3000,\r\n  \"status\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/services",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"services"
+					]
+				},
+				"description": "### API Endpoint: Create a Service\n\nThis endpoint allows you to create a new service in the system. It accepts a POST request with the necessary details of the service you want to add.\n\n#### Request Format\n\nThe request body must be in JSON format and should include the following parameters:\n\n- **name** (string): The name of the service (e.g., \"Car Servicing\").\n    \n- **description** (string): A brief description of the service (e.g., \"Full car cleaning service\").\n    \n- **price** (number): The price of the service (e.g., 3000).\n    \n- **status** (number): The status of the service (e.g., 1 for active).\n    \n\nExample request body:\n\n``` json\n{\n  \"name\": \"Car Servicing\",\n  \"description\": \"Full car cleaning service\",\n  \"price\": 3000,\n  \"status\": 1\n}\n\n ```\n\n#### Response Format\n\nUpon successful creation of the service, the API will respond with a status code of **201 Created** and the following JSON structure:\n\n- **name** (string): The name of the created service.\n    \n- **description** (string): The description of the created service.\n    \n- **price** (number): The price of the created service.\n    \n- **status** (number): The status of the created service.\n    \n- **updated_at** (string): The timestamp of when the service was last updated.\n    \n- **created_at** (string): The timestamp of when the service was created.\n    \n- **id** (number): The unique identifier for the created service.\n    \n\nExample response:\n\n``` json\n{\n  \"name\": \"\",\n  \"description\": \"\",\n  \"price\": 0,\n  \"status\": 0,\n  \"updated_at\": \"\",\n  \"created_at\": \"\",\n  \"id\": 0\n}\n\n ```\n\nThis response confirms that the service has been created and provides the details of the newly created service."
+			},
+			"response": []
+		},
+		{
+			"name": "Update service",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "9|5zeVMNLnTuDNliKrxHXIeLTMlEBDmdKmWkLSUuYWf14cb380",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Updated Cleaning Service\",\r\n  \"description\": \"Updated description of the service.\",\r\n  \"price\": 2600,\r\n  \"status\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/services/3",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"services",
+						"3"
+					]
+				},
+				"description": "## Update Service\n\nThis endpoint allows you to update an existing service by providing the service's details in the request body. The service is identified by its unique ID, which is included in the URL.\n\n### Request\n\n- **Method**: PUT\n    \n- **URL**: `{{baseURL}}/api/services/3`\n    \n- **Request Body** (JSON):\n    \n    - `name` (string): The name of the service. This is a required field.\n        \n    - `description` (string): A detailed description of the service. This is a required field.\n        \n    - `price` (number): The price of the service. This is a required field and should be a numeric value.\n        \n    - `status` (number): The status of the service, typically represented as an integer (e.g., 0 for inactive, 1 for active). This is a required field.\n        \n\n### Example Request Body\n\n``` json\n{\n  \"name\": \"Updated Cleaning Service\",\n  \"description\": \"Updated description of the service.\",\n  \"price\": 2600,\n  \"status\": 0\n}\n\n ```\n\n### Response\n\n- **Status Code**: 200 OK\n    \n- **Content-Type**: application/json\n    \n- **Response Body** (JSON):\n    \n    - `id` (number): The unique identifier for the service.\n        \n    - `name` (string): The updated name of the service.\n        \n    - `description` (string): The updated description of the service.\n        \n    - `price` (number): The updated price of the service.\n        \n    - `status` (number): The updated status of the service.\n        \n    - `created_at` (string): Timestamp of when the service was created.\n        \n    - `updated_at` (string): Timestamp of when the service was last updated.\n        \n\n### Example Response\n\n``` json\n{\n  \"id\": 0,\n  \"name\": \"\",\n  \"description\": \"\",\n  \"price\": 0,\n  \"status\": 0,\n  \"created_at\": \"\",\n  \"updated_at\": \"\"\n}\n\n ```\n\n### Notes\n\n- Ensure that all required fields are provided in the request body to successfully update the service.\n    \n- The response will return the updated details of the service, confirming the changes made."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete service",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "9|5zeVMNLnTuDNliKrxHXIeLTMlEBDmdKmWkLSUuYWf14cb380",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/services/2",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"services",
+						"2"
+					]
+				},
+				"description": "### DELETE Request to Remove a Service\n\nThis endpoint allows you to delete a specific service identified by its unique ID.\n\n#### Request\n\n- **URL**: `{{baseURL}}/api/services/{id}`\n    \n- **Method**: DELETE\n    \n- **Path Parameter**:\n    \n    - `id` (required): The unique identifier of the service you wish to delete.\n        \n\n#### Response\n\n- **Status Code**: 200 OK\n    \n- **Content-Type**: application/json\n    \n- **Response Body**:\n    \n    - `message`: A confirmation message indicating the successful deletion of the service.\n        \n\n#### Notes\n\n- Ensure that the service ID provided in the request path is valid and corresponds to an existing service.\n    \n- A successful deletion will return a status code of 200, confirming that the operation was completed without errors."
+			},
+			"response": []
+		},
+		{
+			"name": "List all bookings",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "9|5zeVMNLnTuDNliKrxHXIeLTMlEBDmdKmWkLSUuYWf14cb380",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/admin/bookings",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"bookings"
+					]
+				},
+				"description": "## Get Bookings\n\nThis endpoint retrieves a list of bookings associated with the admin. It returns detailed information about each booking, including user and service details.\n\n### Request\n\n- **Method**: GET\n    \n- **URL**: `{{baseURL}}/api/admin/bookings`\n    \n\n### Response\n\n- **Status Code**: 200 OK\n    \n- **Content-Type**: application/json\n    \n\n#### Response Body\n\nThe response is a JSON array containing booking objects, each with the following structure:\n\n- **id**: (integer) Unique identifier for the booking.\n    \n- **user_id**: (integer) Identifier for the user associated with the booking.\n    \n- **service_id**: (integer) Identifier for the service booked.\n    \n- **booking_date**: (string) Date when the booking was made.\n    \n- **status**: (string) Current status of the booking.\n    \n- **created_at**: (string) Timestamp of when the booking was created.\n    \n- **updated_at**: (string) Timestamp of the last update to the booking.\n    \n- **user**: (object) Contains details about the user:\n    \n    - **id**: (integer) Unique identifier for the user.\n        \n    - **name**: (string) Name of the user.\n        \n    - **email**: (string) Email address of the user.\n        \n    - **email_verified_at**: (nullable) Timestamp when the user's email was verified.\n        \n    - **is_admin**: (integer) Indicates if the user has admin privileges (1 for true, 0 for false).\n        \n    - **created_at**: (string) Timestamp of when the user was created.\n        \n    - **updated_at**: (string) Timestamp of the last update to the user.\n        \n- **service**: (object or null) Contains details about the service associated with the booking. This can be null if no service is linked.\n    \n\n### Notes\n\n- Ensure that the user making the request has the necessary permissions to access the booking data.\n    \n- The response will include all bookings, regardless of their status."
+			},
+			"response": []
+		},
+		{
+			"name": "Validation Create a new service",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "10|qyQTAvu7PPkebhsG7HcgghFci4uvurkOLc58hJ9p6b37f90a",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Truck Service\",\r\n  \"description\": \"Heavy load Transportation Service\",\r\n  \"price\": 5000,\r\n  \"status\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/services",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"services"
+					]
+				},
+				"description": "### Add Service\n\nThis endpoint allows you to create a new service entry in the system. It accepts a JSON payload containing the details of the service you wish to add.\n\n#### Request Body Parameters\n\nThe request must include the following parameters in JSON format:\n\n- **name** (string): The name of the service (e.g., \"Truck Service\").\n    \n- **description** (string): A brief description of the service being offered (e.g., \"Heavy load Transportation Service\").\n    \n- **price** (number): The cost associated with the service (e.g., 5000).\n    \n- **status** (integer): The current status of the service (e.g., 1 for active).\n    \n\n#### Response\n\nThe response will return a JSON object. In this case, a status code of **403** indicates that the request was forbidden, and the response body may contain a message indicating the reason for the failure.\n\n#### Non-Admin User Behavior\n\nWhen a non-admin user attempts to create a service, the request will be denied. The server will respond with a **403 Forbidden** status code, indicating that the user does not have the necessary permissions to perform this action. The response body may include a message that provides further details about the authorization failure.\n\nEnsure that all required parameters are included in your request to avoid errors.\n\nThis endpoint allows you to create a new service entry in the system. It accepts a JSON payload containing the details of the service you wish to add.\n\n#### Request Body Parameters\n\nThe request must include the following parameters in JSON format:\n\n- **name** (string): The name of the service (e.g., \"Truck Service\").\n    \n- **description** (string): A brief description of the service being offered (e.g., \"Heavy load Transportation Service\").\n    \n- **price** (number): The cost associated with the service (e.g., 5000).\n    \n- **status** (integer): The current status of the service (e.g., 1 for active).\n    \n\n#### Response\n\nThe response will return a JSON object. In this case, a status code of **403** indicates that the request was forbidden, and the response body may contain a message indicating the reason for the failure.\n\nEnsure that all required parameters are included in your request to avoid errors."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://127.0.0.1:8000",
+			"type": "default"
+		}
+	]
+}

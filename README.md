@@ -101,6 +101,19 @@ API will be available at: `http://127.0.0.1:8000`
 
 ---
 
+### Postman Collection
+
+You can test the API using the provided Postman collection:
+
+- **File:** `postman/Servcie Booking System.postman_collection.json`
+- **How to use:**
+  1. Open Postman
+  2. Go to `File` > `Import`
+  3. Select the downloaded `.json` file
+  4. Use the collection to test all available endpoints
+
+---
+
 ## 🖼️ Screenshots (Optional)
 
 <details>
@@ -109,7 +122,8 @@ API will be available at: `http://127.0.0.1:8000`
 ```json
 {
   "service_id": 2,
-  "booking_date": "2025-08-01"
+  "booking_date": "2025-08-01",
+  "is_admin": true
 }
 ```
 </details>
