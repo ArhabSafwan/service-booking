@@ -1,61 +1,142 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 🛠️ Simple Service Booking System (API-Based) – Laravel 12
 
-## About Laravel
+This is a basic service booking system built with Laravel 12 that allows **customers** to register, log in, view services, and book them. An **admin** user can manage services and view all bookings.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project was developed for a coding task by **Qtec Solution Limited** to demonstrate API development, authentication, database relationships, validation, and clean code organization.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✅ Features
 
-## Learning Laravel
+### 🔐 Authentication (Laravel Sanctum)
+- Customer registration and login
+- Admin login (via seeded credentials)
+- Token-based authentication using Sanctum
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 👥 User Roles
+- Customer (default)
+- Admin (via `is_admin` flag in the `users` table)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 📦 Models & Relationships
+- `User` (has many `bookings`)
+- `Service` (has many `bookings`)
+- `Booking` (belongs to `user` and `service`)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 📡 API Endpoints
 
-## Laravel Sponsors
+#### Public
+- `POST /api/register` – Register as customer
+- `POST /api/login` – Login (admin or customer)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### Authenticated (Customer)
+- `GET /api/services` – List available services
+- `POST /api/bookings` – Book a service
+- `GET /api/bookings` – View your bookings
 
-### Premium Partners
+#### Authenticated (Admin)
+- `POST /api/services` – Create a service
+- `PUT /api/services/{id}` – Update a service
+- `DELETE /api/services/{id}` – Delete a service
+- `GET /api/admin/bookings` – View all bookings
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 🚀 Getting Started
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/service-booking-api.git
+cd service-booking-api
+```
 
-## Code of Conduct
+### 2. Install Dependencies
+```bash
+composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Setup `.env` and Generate Key
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Security Vulnerabilities
+### 4. Configure Database
+Update your `.env` file with your database credentials:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+DB_DATABASE=your_db
+DB_USERNAME=your_user
+DB_PASSWORD=your_pass
+```
 
-## License
+### 5. Run Migrations & Seed Admin User
+```bash
+php artisan migrate --seed
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Admin credentials will be seeded like:
+```json
+{
+  "email": "asafwan72@gmail.com",
+  "password": "123456"
+}
+```
+
+### 6. Serve the API
+```bash
+php artisan serve
+```
+
+API will be available at: `http://127.0.0.1:8000`
+
+---
+
+## 🧪 How to Test the API (Postman)
+
+1. Import the included Postman collection (if provided).
+2. Set the base URL: `http://127.0.0.1:8000/api`
+3. Register/login a user and copy the `Bearer` token.
+4. Use the token in `Authorization > Bearer Token` for subsequent requests.
+
+---
+
+## 🖼️ Screenshots (Optional)
+
+<details>
+<summary>Sample JSON to book a service</summary>
+
+```json
+{
+  "service_id": 2,
+  "booking_date": "2025-08-01"
+}
+```
+</details>
+
+---
+
+## ✅ To-Do (Optional Enhancements)
+- Add unit/feature tests
+- Swagger/OpenAPI documentation
+- Live deployment on Render/Railway
+- Admin panel frontend (bonus)
+
+---
+
+## 📁 Project Structure
+- `app/Models`: Contains `User`, `Service`, `Booking`
+- `app/Http/Controllers/Api`: All API Controllers
+- `routes/api.php`: All API routes
+- `database/seeders`: Admin user and service seeder
+
+---
+
+## 👤 Author
+**Arhab Safwan**  
+📧 Email: [asafwan72@gmail.com](mailto:asafwan72@gmail.com)
+
+---
+
+## 📝 License
+This project is open source and free to use for educational and demo purposes.
