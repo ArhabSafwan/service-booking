@@ -79,7 +79,8 @@ Admin credentials will be seeded like:
 ```json
 {
   "email": "asafwan72@gmail.com",
-  "password": "123456"
+  "password": "123456",
+  "is_admin": true
 }
 ```
 
@@ -123,7 +124,6 @@ You can test the API using the provided Postman collection:
 {
   "service_id": 2,
   "booking_date": "2025-08-01",
-  "is_admin": true
 }
 ```
 </details>
