@@ -70,7 +70,7 @@ DB_USERNAME=your_user
 DB_PASSWORD=your_pass
 ```
 
-### 5. Run Migrations & Seed Admin User
+### 5. Run Migrations & Seed Admin User and Services
 ```bash
 php artisan migrate --seed
 ```
@@ -82,6 +82,18 @@ Admin credentials will be seeded like:
   "password": "123456",
   "is_admin": true
 }
+```
+
+Services will be seeded like:
+```json
+{
+    "name": "Haircut",
+    "description": "Professional haircut by our expert stylists.",
+    "price": 25.00,
+    "status": "true",
+    "created_at": "yy-mm-ddT00:00:00.000000Z",
+    "updated_at": "yy-mm-ddT00:00:00.000000Z"
+  }
 ```
 
 ### 6. Serve the API
