@@ -68,7 +68,7 @@
                                 localStorage.setItem('auth_token', data.token);
                             }
                             alert('Login successful!');
-                            // window.location.href = '/dashboard';
+                            window.location.href = '/services';
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.error('Error during login:', jqXHR.responseText);
