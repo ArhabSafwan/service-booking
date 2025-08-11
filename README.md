@@ -3,7 +3,7 @@
 
 This is a basic service booking system built with Laravel 12 that allows **customers** to register, log in, view services, and book them. An **admin** user can manage services and view all bookings.
 
-This project was developed for a coding task by **Qtec Solution Limited** to demonstrate API development, authentication, database relationships, validation, and clean code organization.
+This project was developed to demonstrate API development, authentication, database relationships, validation, and clean code organization.
 
 ---
 
